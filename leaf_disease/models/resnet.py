@@ -16,19 +16,6 @@ class Resnet(nn.Module):
         self.model = model
         self.weights = weights
 
-        # # Init a pretrained model:
-        # # https://lightning.ai/docs/pytorch/stable/advanced/pretrained.html#example-imagenet-computer-vision
-        # if self.model.find("_ssl") > -1:
-        #     print("Loading model from facebookresearch")
-        #     backbone = torch.hub.load(
-        #         "facebookresearch/semi-supervised-ImageNet1K-models", model=self.model
-        #     )
-        # else:
-        #     print("Loading model from pytorch/vision")
-        #     backbone = torch.hub.load(
-        #         "pytorch/vision", model=self.model, weights=self.weights
-        #     )
-
         backbone = self._get_backbone()
 
         # Replace fc layer with correct number of outputs
