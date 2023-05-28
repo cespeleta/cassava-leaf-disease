@@ -1,0 +1,23 @@
+seed_everything: 123
+model:
+  pytorch_model:
+    class_path: leaf_disease.models.resnet.Resnet
+    init_args:
+      model: resnet18
+      weights: DEFAULT
+data:
+  class_path: leaf_disease.datasets.dataset.LeafImageDataModule
+  init_args:
+    batch_size: 64
+    transforms: 
+      class_path: leaf_disease.datasets.augmentation.DataAugmentation
+      init_args:
+        image_size: 244
+trainer:
+  max_epochs: 10
+  logger:
+    class_path: lightning.pytorch.loggers.TensorBoardLogger
+    init_args:
+      save_dir: logs
+      name: default
+      sub_dir: tf_logs
