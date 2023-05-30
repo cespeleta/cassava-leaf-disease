@@ -1,5 +1,7 @@
 from pathlib import Path
 
+from leaf_disease.lit_models.lit_model import LitModel
+
 from lightning.pytorch.callbacks import (
     # EarlyStopping,
     LearningRateMonitor,
@@ -7,8 +9,6 @@ from lightning.pytorch.callbacks import (
 )
 from lightning.pytorch.cli import LightningCLI
 from lightning.pytorch.loggers import TensorBoardLogger
-
-from leaf_disease.lit_models.lit_model import LitModel
 
 
 def cli_main():

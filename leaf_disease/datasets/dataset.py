@@ -4,13 +4,13 @@ import albumentations as A
 import numpy as np
 import pandas as pd
 import torch
+
+from leaf_disease.datasets.augmentation import DataAugmentation
 from lightning import LightningDataModule
 from PIL import Image
 from PIL.Image import Image as PILImage
-from sklearn.model_selection import StratifiedKFold, train_test_split
+from sklearn.model_selection import train_test_split
 from torch.utils.data import DataLoader, Dataset
-
-from leaf_disease.datasets.augmentation import DataAugmentation
 
 
 class LeafImageDataset(Dataset):
@@ -59,7 +59,7 @@ class LeafImageDataset(Dataset):
 class LeafImageDataModule(LightningDataModule):
     def __init__(
         self,
-        image_path: str | Path = "input/train_images/",
+        image_path: str | Path = "input",
         transforms: DataAugmentation = None,
         batch_size: int = 64,
         num_workers: int = 4,
@@ -79,14 +79,15 @@ class LeafImageDataModule(LightningDataModule):
 
     def setup(self, stage: str = None):
         # Read train.csv
-        dfx = pd.read_csv("input/train.csv")
+        dfx = pd.read_csv(self.image_path / "train.csv")
 
         # Split between train and validation
         df_train, df_valid = split_data(dfx)
 
         # Read traning and validation images
-        train_image_paths = [self.image_path / img_id for img_id in df_train.image_id]
-        valid_image_paths = [self.image_path / img_id for img_id in df_valid.image_id]
+        train_image_path = self.image_path / "train_images"
+        train_image_paths = [train_image_path / img_id for img_id in df_train.image_id]
+        valid_image_paths = [train_image_path / img_id for img_id in df_valid.image_id]
         print(f"{len(train_image_paths)=}")
         print(f"{len(valid_image_paths)=}")
 
@@ -103,7 +104,7 @@ class LeafImageDataModule(LightningDataModule):
         )
 
         # Dataloader for predictions
-        test_image_path = Path("input/test_images/")
+        test_image_path = self.image_path / "test_images"
         test_image_paths = list(test_image_path.glob("*.jpg"))
         self.predict_dl = LeafImageDataset(
             image_path=test_image_paths,
@@ -152,15 +153,6 @@ def split_data(df: pd.DataFrame, test_size: float = 0.2):
     df_train = df.iloc[train_idx, :].reset_index(drop=True)
     df_valid = df.iloc[valid_idx, :].reset_index(drop=True)
     return df_train, df_valid
-
-
-def split_data_in_folds(df: pd.DataFrame, n_splits: int = 5):
-    skf = StratifiedKFold(n_splits=n_splits)
-    for fold, (train_idx, valid_idx) in enumerate(
-        skf.split(df.index.values, groups=df.label.values)
-    ):
-        df.iloc[train_idx] = fold
-        # ...
 
 
 if __name__ == "__main__":
