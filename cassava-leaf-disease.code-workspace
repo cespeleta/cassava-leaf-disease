@@ -7,7 +7,16 @@
 	"settings": {
 		"[python]": {
 			"editor.defaultFormatter": "ms-python.black-formatter",
+			"editor.formatOnSave": true,
+			"editor.codeActionsOnSave": {
+				"source.organizeImport ": true
+			},
 		},
+		"black-formatter.args": [
+			"--config",
+			"pyproject.toml"
+		],
+		"ruff.organizeImports": false,
 		"python.formatting.provider": "none",
 		"python.terminal.executeInFileDir": false,
 		"jupyter.notebookFileRoot": "${workspaceFolder}",

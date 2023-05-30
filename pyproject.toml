@@ -27,3 +27,12 @@ ipykernel = "^6.23.1"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.black]
+color = true
+line-length = 88
+skip-string-normalization = true
