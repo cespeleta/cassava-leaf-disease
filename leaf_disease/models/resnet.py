@@ -36,7 +36,7 @@ class Resnet(nn.Module):
 
 
 class ResnetSSL(Resnet):
-    """Semi-Supervised and Semi-Weakly Supervised ImageNet Models
+    """Semi-Supervised and Semi-Weakly Supervised ImageNet Models.
 
     This project includes the semi-supervised and semi-weakly supervised ImageNet models
     introduced in "Billion-scale Semi-Supervised Learning for Image Classification"

@@ -1,4 +1,5 @@
 # cassava-leaf-disease
+
 Kaggle competition to distinguish between several diseases that cause material harm to the food supply of many African countries
 
 To run different set of models to evaluate which arquitechtures work better than the others:
@@ -16,7 +17,7 @@ Best model arquitechrures are `resnext50_32x4d`, `efficientnet_b1` and `efficien
 Experiment results
 
 |                 | CV     |
-|-----------------|--------|
+| --------------- | ------ |
 | resnext50_32x4d | 0.9097 |
 | efficientnet_b1 | 0.9044 |
 | efficientnet_b4 | 0.9052 |
