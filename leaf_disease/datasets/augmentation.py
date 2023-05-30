@@ -12,9 +12,30 @@ class DataAugmentation:
     def train_transforms(self):
         return A.Compose(
             [
-                A.RandomResizedCrop(height=self.image_size, width=self.image_size),
-                # Divide pixel values of an image by 255, so each pixel's value will
-                # lie in a range [0.0, 1.0]
+                # A.RandomResizedCrop(height=self.image_size, width=self.image_size),
+                # # Divide pixel values of an image by 255, so each pixel's value will
+                # # lie in a range [0.0, 1.0]
+                # A.Normalize(max_pixel_value=255),
+                # ToTensorV2(),  # Reshape to [C, W, H]
+                A.RandomResizedCrop(self.image_size, self.image_size),
+                A.Transpose(p=0.5),
+                A.HorizontalFlip(p=0.5),
+                A.VerticalFlip(p=0.5),
+                A.ShiftScaleRotate(p=0.5),
+                A.Normalize(
+                    mean=[0.485, 0.456, 0.406],
+                    std=[0.229, 0.224, 0.225],
+                    max_pixel_value=255,
+                ),
+                ToTensorV2(),  # Reshape to [C, W, H]
+            ]
+        )
+
+    @property
+    def valid_transforms(self):
+        return A.Compose(
+            [
+                A.CenterCrop(height=self.image_size, width=self.image_size),
                 A.Normalize(max_pixel_value=255),
                 ToTensorV2(),  # Reshape to [C, W, H]
             ]
@@ -27,21 +48,6 @@ class DataAugmentation:
     # @train_transforms.setter
     # def train_transforms(self, value):
     #     self._train_transforms = value
-
-    @property
-    def valid_transforms(self):
-        return A.Compose(
-            [
-                A.CenterCrop(height=self.image_size, width=self.image_size),
-                A.Normalize(max_pixel_value=255),
-                ToTensorV2(),  # Reshape to [C, W, H]
-            ]
-        )
-
-    # def __call__(self) -> Any:
-    #     if self.train:
-    #         return self.train_transforms
-    #     return self.valid_transforms
 
 
 if __name__ == "__main__":

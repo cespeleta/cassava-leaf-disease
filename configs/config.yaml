@@ -9,7 +9,7 @@ data:
   class_path: leaf_disease.datasets.dataset.LeafImageDataModule
   init_args:
     batch_size: 64
-    transforms: 
+    transforms:
       class_path: leaf_disease.datasets.augmentation.DataAugmentation
       init_args:
         image_size: 244
