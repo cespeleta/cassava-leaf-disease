@@ -3,7 +3,7 @@ from albumentations.pytorch import ToTensorV2
 
 
 class DataAugmentation:
-    """Module to perform data augmentation using Kornia on torch tensors."""
+    """Module to perform data augmentation using Albumentation on torch tensors."""
 
     def __init__(self, image_size: int = 244) -> None:
         self.image_size = image_size
