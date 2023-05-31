@@ -21,3 +21,19 @@ Experiment results
 | resnext50_32x4d | 0.9097 |
 | efficientnet_b1 | 0.9044 |
 | efficientnet_b4 | 0.9052 |
+
+## Image exploration
+
+Images with label 0: Cassava Bacterial Blight (CBB)
+
+![Cassava Bacterial Blight (CBB)](images/label_0.jpg)
+
+Image augmentations
+
+![Image augmentations](images/augmentations.jpg)
+
+# Contact ✒️
+
+Carlos Espeleta - @Carlos_Espeleta
+
+LinkedIn: https://www.linkedin.com/in/carlos-espeleta
