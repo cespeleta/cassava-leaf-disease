@@ -73,6 +73,9 @@ class LeafImageDataModule(LightningDataModule):
         if isinstance(self.image_path, str):
             self.image_path = Path(self.image_path)
 
+        if self.transforms is None:
+            self.transforms = DataAugmentation()
+
     def prepare_data(self):
         # download data, tokenize, save, etc.
         pass
